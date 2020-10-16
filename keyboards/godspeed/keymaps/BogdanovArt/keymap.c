@@ -1,32 +1,57 @@
 #include "kb.h"
 
-const uint16_t PROGMEM reset_combo[] = {KC_LSHIFT, KC_RSHIFT, KC_ESC, COMBO_END};
-
-combo_t key_combos[1] = {
-  COMBO(reset_combo, RESET)
+enum {
+	TD_GUI_EXP,
+	LANG_SC,
+	BACK_SC
 };
+
+enum layers {
+	_DEF,
+	_FNC,
+	_MED,
+	_SRV
+};
+
+qk_tap_dance_action_t tap_dance_actions[] = {
+	[TD_GUI_EXP] = ACTION_TAP_DANCE_DOUBLE(KC_LGUI, LGUI(KC_E)),	
+};
+
+#define TD_E TD(TD_GUI_EXP)
+#define LANG_SC LGUI(KC_SPC)
+#define BACK_SC LCTL(KC_Z)
+#define RESET_DELAY 5000
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
 
-	[0] = LAYOUT(
-		KC_ESC,   KC_1,     KC_2,     KC_3,   KC_4,    KC_5,    KC_6,     KC_7,     KC_8,     KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC, 
-		KC_TAB,   KC_Q,     KC_W,     KC_E,   KC_R,    KC_T,    KC_Y,     KC_U,     KC_I,     KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_DEL, 
-		KC_CAPS,  KC_A,     KC_S,     KC_D,   KC_F,    KC_G,    KC_H,     KC_J,     KC_K,     KC_L,     KC_SCLN,  KC_QUOT,  KC_GRV,   KC_ENT, 
-		KC_LSFT,  KC_Z,     KC_X,     KC_C,   KC_V,    KC_B,    KC_N,     KC_M,     KC_COMM,  KC_DOT,   KC_SLSH,  KC_BSLS,  KC_PSCR,  KC_LSFT, 
-		KC_LCTL,  KC_LGUI,  KC_LALT,  MO(1),  KC_SPC,           KC_SPC,   KC_BSPC,  MO(2),    KC_LEFT,  KC_UP,    KC_DOWN,  KC_RGHT,  KC_LCTL),
+	[_DEF] = LAYOUT(
+		KC_ESC,   KC_1,    KC_2,     KC_3,     KC_4,    KC_5,    KC_6,     KC_7,     KC_8,      KC_9,     KC_0,     KC_MINS,  KC_EQL,   KC_BSPC, 
+		KC_TAB,   KC_Q,    KC_W,     KC_E,     KC_R,    KC_T,    KC_Y,     KC_U,     KC_I,      KC_O,     KC_P,     KC_LBRC,  KC_RBRC,  KC_DEL, 
+		LANG_SC,  KC_A,    KC_S,     KC_D,     KC_F,    KC_G,    KC_H,     KC_J,     KC_K,      KC_L,     KC_SCLN,  KC_QUOT,  KC_GRV,   KC_ENT, 
+		KC_LSFT,  KC_Z,    KC_X,     KC_C,     KC_V,    KC_B,    KC_N,     KC_M,     KC_COMM,   KC_DOT,   KC_SLSH,  KC_BSLS,  MO(_SRV), KC_RSFT, // temp mo(3)
+		KC_LCTL,  TD_E,    KC_LALT,  KC_LSFT,  MO(_FNC),     KC_SPC,       MO(_MED), KC_BSPC,   KC_HOME,  KC_PGDN,  KC_PGUP,  KC_END,   KC_RCTL
+	),
 
-	[1] = LAYOUT(
-		KC_TRNS, KC_F1,   KC_F2,   KC_F3,   KC_F4,   KC_F5,   KC_F6,   KC_F7,   KC_F8,   KC_F9,   KC_F10,  KC_F11,  KC_F12,  KC_TRNS, 
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_HOME, KC_END,  KC_TRNS, 
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_PGUP, KC_PGDN, KC_TRNS, KC_TRNS),
+	[_FNC] = LAYOUT(
+		_______,  KC_F1,   KC_F2,   KC_F3,     KC_F4,   KC_F5,   KC_F6,    KC_F7,    KC_F8,     KC_F9,    KC_F10,   KC_F11,   KC_F12,   _______, 
+		_______,  _______, _______, _______,   _______, _______, _______,  _______,  _______,   _______,  KC_PSCR,  _______,  _______,  _______, 
+		KC_CAPS,  _______, _______, _______,   _______, _______, _______,  KC_LEFT,  KC_DOWN,   KC_UP,    KC_RGHT,  _______,  _______,  _______, 
+		_______,  _______, _______, _______,   _______, _______, _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______, 
+		_______,  _______, _______, _______,   _______,       _______,      KC_ENT,  KC_DEL,    _______,  _______,  _______,  _______,  _______
+	),
 
-	[2] = LAYOUT(
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_MUTE, KC_VOLD, KC_VOLU, KC_TRNS, 
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, 
-		KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS, KC_TRNS,          KC_TRNS, KC_TRNS, KC_TRNS, KC_MPRV, KC_MSTP, KC_MPLY, KC_MNXT, KC_TRNS),
-
+	[_MED] = LAYOUT(
+		_______,  _______, _______, _______,   _______, _______, _______,  _______,  _______,   _______,  KC_MUTE,  KC_VOLD,  KC_VOLU,  _______, 
+		_______,  _______, _______, _______,   _______, _______, _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______, 
+		_______,  _______, _______, _______,   _______, _______, _______,  KC_HOME,  KC_PGDN,   KC_PGUP,  KC_END,   _______,  _______,  _______, 
+		_______,  _______, _______, _______,   _______, _______, _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______, 
+		_______,  _______, _______, _______,   BACK_SC,      _______,      _______,  _______,   KC_MPRV,  KC_MSTP,  KC_MPLY,  KC_MNXT,  _______
+	),
+	[_SRV] = LAYOUT(
+	    RESET,    _______, _______, _______,   _______, _______, _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______, 
+		_______,  _______, _______, _______,   _______, _______, _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______, 
+		_______,  _______, _______, _______,   _______, _______, _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______, 
+		_______,  _______, _______, _______,   _______, _______, _______,  _______,  _______,   _______,  _______,  _______,  _______,  _______, 
+		_______,  _______, _______, _______,   _______,      _______,      _______,  _______,   _______,  _______,  _______,  _______,  _______
+	)
 };

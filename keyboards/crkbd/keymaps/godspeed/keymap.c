@@ -59,17 +59,21 @@ static uint16_t reset_timer;
 #define KC_LMOD  RGB_MOD
 #define KC_GUIEI GUI_T(KC_LANG2)
 #define KC_ALTKN ALT_T(KC_LANG1)
+#define KC_FRMT LALT(LSFT(KC_F))
+#define KC_SAVE LCTL(KC_S)
+#define KC_UNTAB LSFT(KC_TAB)
+
 
 const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   [_QWERTY] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
         TAB,     Q,     W,     E,     R,     T,                      Y,     U,     I,     O,     P,  BSPC,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LSFT,     A,     S,     D,     F,     G,                      H,     J,     K,     L,  SCLN,  ENT,\
+       LSFT,     A,     S,     D,     F,     G,                      H,     J,     K,     L,  SCLN,   ENT,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-       LCTL,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,  ESC,\
+       LCTL,     Z,     X,     C,     V,     B,                      N,     M,  COMM,   DOT,  SLSH,   ESC,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LGUI, LOWER,  LSFT,      SPC, RAISE, LALT \
+                                  LALT, LOWER,    SPC,      SPC, RAISE, LCTL \
                               //`--------------------'  `--------------------'
   ),
 
@@ -81,31 +85,31 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LCTL, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                   VOLD,  MPRV,  MSTP,  MPLY,  MNXT, XXXXX,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LGUI, LOWER,  LSFT,      SPC, RAISE, LALT \
+                                  LGUI, LOWER,    SPC,      SPC, RAISE, LCTL \
                               //`--------------------'  `--------------------'
   ),
 
   [_LOWER] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        TAB,  EXLM,    AT,  HASH,   DLR,  PERC,                   CIRC,  AMPR,  ASTR,  LPRN,  RPRN,  BSPC,\
+      UNTAB,  EXLM,    AT,  HASH,   DLR,  PERC,                   CIRC,  AMPR,  ASTR,  LPRN,  RPRN, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LSFT, MINS,   PLUS,  UNDS,   EQL,  LPRN,                   RPRN,  LCBR,  RCBR,  LBRC,  RBRC, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
        LCTL,  TILD,   GRV,  QUOT,  DQUO,    LT,                     GT, SLSH ,  PIPE,  BSLS, XXXXX, XXXXX,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LGUI, LOWER,  LSFT,      SPC, RAISE, LALT \
+                                  LALT, LOWER,    SPC,      SPC, RAISE, LCTL \
                               //`--------------------'  `--------------------'
   ),
 
   [_ADJUST] = LAYOUT_kc( \
   //,-----------------------------------------.                ,-----------------------------------------.
-        TAB,    F1,    F2,    F3,    F4,    F5,                     F6,    F7,    F8,    F9,   F10, XXXXX,\
+      XXXXX,    F1,    F2,    F3,    F4,    F5,                     F6,    F7,    F8,    F9,   F10, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,\
+      XXXXX, XXXXX,  SAVE, XXXXX, FRMT, XXXXX,                   XXXXX,  HOME,  PGDN,  PGUP,   END, XXXXX,\
   //|------+------+------+------+------+------|                |------+------+------+------+------+------|
-      XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,  RST,\
+      XXXXX, XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,                  XXXXX, XXXXX, XXXXX, XXXXX, XXXXX,   RST,\
   //|------+------+------+------+------+------+------|  |------+------+------+------+------+------+------|
-                                  LGUI, LOWER,  LSFT,     SPC, RAISE, LALT \
+                                  XXXXX, LOWER, XXXXX,    XXXXX, RAISE, XXXXX \
                               //`--------------------'  `--------------------'
   )
 };

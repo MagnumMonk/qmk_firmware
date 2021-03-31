@@ -30,22 +30,15 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 /* Select hand configuration */
 
 #define MASTER_LEFT
-// #define MASTER_RIGHTasdasd
+// #define MASTER_RIGHT
 // #define EE_HANDS
 
-// #define SSD1306OLED
+// #define SSD1306OLED sdfjjjsa
 
 #define USE_SERIAL_PD2
 
 #define TAPPING_FORCE_HOLD
 #define TAPPING_TERM 150
 
-#define MOUSEKEY_INTERVAL 16
-#define MOUSEKEY_DELAY 0
-#define MOUSEKEY_TIME_TO_MAX 60
-#define MOUSEKEY_MAX_SPEED 5
-#define MOUSEKEY_WHEEL_DELAY 0
 #define ONESHOT_TAP_TOGGLE 2
-
-#define OLED_FONT_H "keyboards/crkbd/lib/glcdfont.c"
 
